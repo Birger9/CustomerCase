@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import entities from './typeorm';
 import { EmployeesModule } from './employees/employees.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { EmployeesModule } from './employees/employees.module';
       inject: [ConfigService],
     }),
     EmployeesModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
