@@ -1,4 +1,5 @@
 import { useState } from "react";
+import InventoryTable from "../Components/InventoryTable";
 import Nav from "../Components/Nav/Nav";
 
 //import jwt_decode from "jwt-decode";
@@ -21,7 +22,24 @@ export const InventoryPage: React.FC = () => {
         setMsg(msg);
     };
 
+    function createData(
+        productNumber: string,
+        city: string,
+        balance: number,
+    ) {
+        return { productNumber, city, balance, };
+    }
+      
+    const rows = [
+        createData('JTelefon', "Cupertino", 170000),
+        createData('JTelefon', "Norrköping", 55000),
+        createData('JTelefon', "Frankfurt", 101700)
+    ]
+
     return (
-        <Nav />
+        <div>
+            <Nav />
+            <InventoryTable rows={rows} />
+        </div>
     );
 }
