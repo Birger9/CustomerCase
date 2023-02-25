@@ -27,7 +27,7 @@ export class EmployeesController {
 
     @Post('create')
     @UsePipes(ValidationPipe)
-    createUsers(@Body() createEmployeeDto: CreateEmployeeDto) {
+    createEmployees(@Body() createEmployeeDto: CreateEmployeeDto) {
         return this.employeesService.createEmployee(createEmployeeDto);
     }
 }

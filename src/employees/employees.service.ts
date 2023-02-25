@@ -8,36 +8,36 @@ import { CreateEmployeeDto } from 'src/dtos/employees.dtos';
 
 @Injectable()
 export class EmployeesService {
-    constructor(
-        @InjectRepository(Employee) private readonly employeeRepository: Repository<Employee>,
-      ) {}
-          
-      async createEmployee(createEmployeeDto: CreateEmployeeDto) {
-        let email = createEmployeeDto.email;
-        let employee = await this.employeeRepository.findOne({where: {email: email}});
-        if (!employee) {
-          // Salt and hash employee password.
-          //const password = createEmployeeDto.password;
-          //const SALT = await bcrypt.genSalt(10);
-          //createEmployeeDto.password = await bcrypt.hash(password, SALT);
-
-          const newEmployee = this.employeeRepository.create(createEmployeeDto);
-          return this.employeeRepository.save(newEmployee);
-        }
+  constructor(
+      @InjectRepository(Employee) private readonly employeeRepository: Repository<Employee>,
+    ) {}
         
-        throw new HttpException('Employee already exists', HttpStatus.CONFLICT);
-      }
+    async createEmployee(createEmployeeDto: CreateEmployeeDto) {
+      let email = createEmployeeDto.email;
+      let employee = await this.employeeRepository.findOne({where: {email: email}});
+      if (!employee) {
+        // Salt and hash employee password.
+        //const password = createEmployeeDto.password;
+        //const SALT = await bcrypt.genSalt(10);
+        //createEmployeeDto.password = await bcrypt.hash(password, SALT);
 
-      getEmployees() {
-        return this.employeeRepository.find();
+        const newEmployee = this.employeeRepository.create(createEmployeeDto);
+        return this.employeeRepository.save(newEmployee);
       }
-          
-      async findEmployeesByEmail(email: string): Promise<Employee>  {
-        let employee = await this.employeeRepository.findOne({where: {email: email}});
-        if (employee) {
-          return employee;
-        }
+      
+      throw new HttpException('Employee already exists', HttpStatus.CONFLICT);
+    }
+
+    getEmployees() {
+      return this.employeeRepository.find();
+    }
         
-        throw new HttpException('Employee does not exist', HttpStatus.NOT_FOUND);
+    async findEmployeesByEmail(email: string): Promise<Employee>  {
+      let employee = await this.employeeRepository.findOne({where: {email: email}});
+      if (employee) {
+        return employee;
       }
+      
+      throw new HttpException('Employee does not exist', HttpStatus.NOT_FOUND);
+    }
 }
