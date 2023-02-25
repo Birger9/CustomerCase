@@ -6,6 +6,7 @@ import axios from 'axios';
 import { Colors } from "../Assets/Colors";
 import { EmailInputField } from "../Components/EmailInputField";
 import { PasswordInputField } from "../Components/PasswordInputField";
+import { stat } from 'fs';
 
 export const LoginPage: React.FC = () => {
 
@@ -36,7 +37,7 @@ export const LoginPage: React.FC = () => {
     };
   
     type LoginUserResponse = {
-        data: string; // Access token
+        access_token: string; // Access token
     };
 
     const loginUser = async () => {
@@ -51,12 +52,10 @@ export const LoginPage: React.FC = () => {
               },
             );
         
-            console.log(JSON.stringify(data, null, 4));
-        
-            // "response status is: 200"
-            console.log('response status is: ', status);
-        
-            return data;
+            if(status === 201) {
+                let accessToken = data.access_token;
+                localStorage.setItem("token", accessToken);
+            }
           } catch (error) {
             
             if (axios.isAxiosError(error)) {
