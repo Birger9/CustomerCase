@@ -1,13 +1,8 @@
-import Alert from "@mui/material/Alert";
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import Paper from "@mui/material/Paper";
-import Snackbar from "@mui/material/Snackbar";
-import Stack from "@mui/material/Stack";
+import {Container, Paper, Button, FormControl, InputLabel, Snackbar, Alert, Stack} from '@mui/material';
 import { useState } from "react";
+import axios from 'axios';
 //import { useNavigate } from "react-router-dom";
+
 import { Colors } from "../Assets/Colors";
 import { EmailInputField } from "../Components/EmailInputField";
 import { PasswordInputField } from "../Components/PasswordInputField";
@@ -22,7 +17,7 @@ export const LoginPage: React.FC = () => {
 
     // Used for snackbar.
     const [open, setOpen] = useState(false);
-    const [msg,] = useState("");
+    const [msg, setMsg] = useState("");
 
     // Constants
     const passwordFieldId = "outlined-adornment-password";
@@ -35,8 +30,42 @@ export const LoginPage: React.FC = () => {
         setOpen(false);
     };
 
+    const openSnackBar = (msg: string) => {
+        setOpen(true);
+        setMsg(msg);
+    };
+  
+    type LoginUserResponse = {
+        data: string; // Access token
+    };
+
     const loginUser = async () => {
-        console.log("Login is accepted")
+        try {
+            const { data, status } = await axios.post<LoginUserResponse>(
+              'http://localhost:4000/auth/login',
+              { username: email, password: password },
+              {
+                headers: {
+                  Accept: 'application/json',
+                },
+              },
+            );
+        
+            console.log(JSON.stringify(data, null, 4));
+        
+            // "response status is: 200"
+            console.log('response status is: ', status);
+        
+            return data;
+          } catch (error) {
+            
+            if (axios.isAxiosError(error)) {
+              openSnackBar(error.message);
+            } 
+            else {
+              console.log('unexpected error: ', error);
+            }
+          }
     };
 
     return (
