@@ -3,7 +3,7 @@ import { HasRights } from 'src/auth/has-rights.decorator';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { RightsGuard } from 'src/auth/rights.guard';
 
-import { CreateProductDto } from 'src/dtos/product.dtos';
+import { CreateProductDto } from 'src/dtos/products.dtos';
 import { Rights } from 'src/enums/rights.enum';
 import { Product } from 'src/typeorm';
 import { ProductsService } from './products.service';

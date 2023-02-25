@@ -1,7 +1,8 @@
 import { Employee } from "./employee.entity";
-import { Product } from "./products.entity";
+import { Product } from "./product.entity";
+import { Warehouse } from "./warehouse.entity";
 
-const entities = [Employee, Product];
+const entities = [Employee, Product, Warehouse];
 
-export {Employee, Product};
+export {Employee, Product, Warehouse};
 export default entities;

@@ -7,6 +7,7 @@ import entities from './typeorm';
 import { EmployeesModule } from './employees/employees.module';
 import { AuthModule } from './auth/auth.module';
 import { ProductsModule } from './products/products.module';
+import { WarehousesModule } from './warehouses/warehouses.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { ProductsModule } from './products/products.module';
     EmployeesModule,
     AuthModule,
     ProductsModule,
+    WarehousesModule,
   ],
   controllers: [],
   providers: [],
