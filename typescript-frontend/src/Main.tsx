@@ -2,13 +2,13 @@ import { Routes, Route } from 'react-router-dom';
 
 // Own files.
 import { LoginPage } from './Screens/LoginPage';
-import { MainPage } from './Screens/MainPage';
+import { InventoryPage } from './Screens/InventoryPage';
 
 const Main = () => {
     return (     
         <Routes>
             <Route path='/' element={<LoginPage/>} />
-            <Route path='/home' element={<MainPage/>} />
+            <Route path='/inventory' element={<InventoryPage/>} />
         </Routes>
     );
 }

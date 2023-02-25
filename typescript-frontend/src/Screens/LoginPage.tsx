@@ -56,7 +56,7 @@ export const LoginPage: React.FC = () => {
                 let accessToken = data.access_token;
                 localStorage.setItem("token", accessToken);
 
-                navigate("/home");
+                navigate("/inventory");
 
                 /*
                 let t = localStorage.getItem("token");
