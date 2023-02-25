@@ -1,12 +1,13 @@
 import {Container, Paper, Button, FormControl, InputLabel, Snackbar, Alert, Stack} from '@mui/material';
 import { useState } from "react";
 import axios from 'axios';
-//import { useNavigate } from "react-router-dom";
+
+//import jwt_decode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 import { Colors } from "../Assets/Colors";
 import { EmailInputField } from "../Components/EmailInputField";
 import { PasswordInputField } from "../Components/PasswordInputField";
-import { stat } from 'fs';
 
 export const LoginPage: React.FC = () => {
 
@@ -24,8 +25,7 @@ export const LoginPage: React.FC = () => {
     const passwordFieldId = "outlined-adornment-password";
     const emailFieldId = "outlined-email";
 
-    //const navigate = useNavigate();
-    //const handleGoToRegister = () => navigate("/register");
+    const navigate = useNavigate();
     
     const handleClose = () => {
         setOpen(false);
@@ -55,6 +55,16 @@ export const LoginPage: React.FC = () => {
             if(status === 201) {
                 let accessToken = data.access_token;
                 localStorage.setItem("token", accessToken);
+
+                navigate("/home");
+
+                /*
+                let t = localStorage.getItem("token");
+                if(t) {
+                    let decoded = jwt_decode(t);
+                    console.log(decoded);
+                }
+                */
             }
           } catch (error) {
             
