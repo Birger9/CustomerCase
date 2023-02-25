@@ -9,14 +9,33 @@
 }
 
 .logo-container {
-    margin-left: 80px;
-    font-weight: 500;
+    color: rgb(14, 34, 14);
     cursor: pointer;
 }
 
-.links-container {
+.logo-container:hover {
+    color: rgba(14, 34, 14, 0.8);
+    cursor: pointer;
+}
+
+.logo-container span {
     margin-right: 80px;
+}
+
+.links-container {
+    margin-left: 80px;
     display: flex;
     width: 300px;
     justify-content: space-evenly;
+}
+
+.link a {
+    padding-left: 40px;
+    text-decoration: none;
+    color: rgb(14, 34, 14);
+}
+
+.link a:hover {
+    text-decoration: none;
+    color: rgba(14, 34, 14, 0.8);
 }

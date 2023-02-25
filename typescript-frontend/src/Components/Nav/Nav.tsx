@@ -11,25 +11,32 @@ type Link = {
     href: string
 }
 
-const Nav: React.FC<{}> = () => {
-  return (
-        <div className={styles.navbar}>
-            <div className={styles['logo-container']}>
-                Logo
-            </div>
-            <div className={styles['links-container']}>
-                {links.map((link: Link) => {
-                    return (
-                        <div key={link.href} className={styles['link']}>
-                            <a href={link.href}>
-                                {link.label}
-                            </a>
-                        </div>
-                    )
-                })}
-            </div>
+const Links: React.FC<{ links: Link[] }> = ({ links }) => {
+    return (
+        <div className={styles['links-container']}>
+            {links.map((link: Link) => {
+                return (
+                    <div key={link.href} className={styles['link']}>
+                        <a href={link.href}>
+                            {link.label}
+                        </a>
+                    </div>
+                )
+            })}
         </div>
     )
 }
+
+const Nav: React.FC<{}> = () => {
+    return (
+          <div className={styles.navbar}> 
+              <Links links={links}/>           
+              <div className={styles['logo-container']}>
+                  <span>Log out</span>
+              </div>
+          </div>
+      )
+  }
+  
 
 export default Nav
