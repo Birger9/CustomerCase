@@ -1,4 +1,5 @@
 import { IsEmail, IsNotEmpty, MinLength, IsInt, Min, Max } from "class-validator";
+import { Rights } from "src/enums/rights.enum";
 
 export class CreateEmployeeDto {
   @IsNotEmpty()
@@ -13,5 +14,5 @@ export class CreateEmployeeDto {
   @IsInt()
   @Min(0)
   @Max(2)
-  rights: number;
+  rights: Rights;
 }
