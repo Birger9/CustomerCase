@@ -1,0 +1,20 @@
+{
+    "links": [
+        {
+            "label": "Inventory",
+            "href": "/inventory"    
+        },
+        {
+            "label": "Products",
+            "href": "/products"    
+        },
+        {
+            "label": "Warehouses",
+            "href": "/warehouses"    
+        },
+        {
+            "label": "Deliveries",
+            "href": "/deliveries"    
+        }
+    ]
+}
