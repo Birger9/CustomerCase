@@ -16,14 +16,14 @@ export class WarehousesController {
     @HasRights(Rights.Employee)
     @UseGuards(JwtAuthGuard, RightsGuard)
     @Get()
-    getProducts() {
+    getWarehouses() {
         return this.WarehousesService.getWarehouses();
     }
 
     @HasRights(Rights.Employee)
     @UseGuards(JwtAuthGuard, RightsGuard)
     @Get('city/:city')
-    findProductsByProductNumber(@Param('city') city: string): Promise<Warehouse> {
+    findWarehousesByCity(@Param('city') city: string): Promise<Warehouse> {
         return this.WarehousesService.findWarehousesByCity(city);
     }
 
@@ -31,7 +31,7 @@ export class WarehousesController {
     @UseGuards(JwtAuthGuard, RightsGuard)
     @Post('create')
     @UsePipes(ValidationPipe)
-    createProduct(@Body() createWarehouseDto: CreateWarehouseDto) {
+    createWarehouse(@Body() createWarehouseDto: CreateWarehouseDto) {
         return this.WarehousesService.createWarehouse(createWarehouseDto);
     }
 }
