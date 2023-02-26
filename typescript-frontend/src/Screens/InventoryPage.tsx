@@ -8,15 +8,11 @@ import Nav from "../Components/Nav/Nav";
 
 export const InventoryPage: React.FC = () => {
     // Used for snackbar.
-    const [open, setOpen] = useState(false);
-    const [msg, setMsg] = useState("");
+    const [, setOpen] = useState(false);
+    const [, setMsg] = useState("");
 
     const [inventory, setInventory] = useState([]);
     
-    const handleClose = () => {
-        setOpen(false);
-    };
-
     const openSnackBar = (msg: string) => {
         setOpen(true);
         setMsg(msg);

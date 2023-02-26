@@ -25,29 +25,29 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 type data = {
     name: string,
-    city: string,
-    balance: number
+    productNumber: string,
+    price: number
 }
 
-const InventoryTable: React.FC<{ rows: data[] }> = ({ rows }) => {
+const ProductsTable: React.FC<{ rows: data[] }> = ({ rows }) => {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }}>
         <TableHead>
           <TableRow>
-            <StyledTableCell>Product Name</StyledTableCell>
-            <StyledTableCell align="left">City</StyledTableCell>
-            <StyledTableCell align="left">Balance</StyledTableCell>
+            <StyledTableCell>Product Number</StyledTableCell>
+            <StyledTableCell align="left">Name</StyledTableCell>
+            <StyledTableCell align="left">Price</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <StyledTableRow key={row.name}>
+            <StyledTableRow key={row.productNumber}>
               <StyledTableCell component="th" scope="row">
-                {row.name}
+                {row.productNumber}
               </StyledTableCell>
-              <StyledTableCell align="left">{row.city}</StyledTableCell>
-              <StyledTableCell align="left">{row.balance}</StyledTableCell>
+              <StyledTableCell align="left">{row.name}</StyledTableCell>
+              <StyledTableCell align="left">{row.price}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
@@ -56,4 +56,4 @@ const InventoryTable: React.FC<{ rows: data[] }> = ({ rows }) => {
   );
 }
 
-export default InventoryTable;
+export default ProductsTable;
