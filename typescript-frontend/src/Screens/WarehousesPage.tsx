@@ -71,7 +71,7 @@ export const WarehousesPage: React.FC = () => {
 
     return (
         <div>
-            <Nav />
+            <Nav right={right}/>
             <WarehousesTable rows={warehouses} />
             {right >= 1 ? (
                 <CreateNewWarehouseDialog />

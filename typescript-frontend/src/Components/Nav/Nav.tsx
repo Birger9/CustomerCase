@@ -5,15 +5,20 @@ import styles from './Nav.module.css';
 import { useNavigate } from "react-router-dom";
 
 import * as data from './links.json';
+import * as adminData from './adminlinks.json';
+
 const linkString = JSON.stringify(data);
 const links = JSON.parse(linkString).links;
+
+const adminLinkString = JSON.stringify(adminData);
+const adminLinks = JSON.parse(adminLinkString).links;
 
 type Link = {
     label: string,
     href: string
 }
 
-const Links: React.FC<{ links: Link[] }> = ({ links }) => {
+const Links: React.FC<{ links: Link[]}> = ({ links }) => {
     return (
         <div className={styles['links-container']}>
             {links.map((link: Link) => {
@@ -29,22 +34,33 @@ const Links: React.FC<{ links: Link[] }> = ({ links }) => {
     )
 }
 
-const Nav: React.FC<{}> = () => {
+const Nav: React.FC<{ right: number }> = ({ right }) => {
     const navigate = useNavigate();
-
+ 
     const logoutEmployee = () => {
         localStorage.removeItem("token");
         navigate("/");
     };
-    
-    return (
-          <div className={styles.navbar}> 
-              <Links links={links}/>           
-              <div className={styles['logo-container']}>
-                  <span onClick={logoutEmployee}>Log out</span>
-              </div>
-          </div>
+
+    if(right === 2) {
+        return (
+            <div className={styles.navbar}> 
+                <Links links={adminLinks} />           
+                <div className={styles['logo-container']}>
+                    <span onClick={logoutEmployee}>Log out</span>
+                </div>
+            </div>
       )
+    }else {
+        return (
+            <div className={styles.navbar}> 
+                <Links links={links} />           
+                <div className={styles['logo-container']}>
+                    <span onClick={logoutEmployee}>Log out</span>
+                </div>
+            </div>
+      )
+    }
   }
   
 

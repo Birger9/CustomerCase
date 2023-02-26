@@ -71,7 +71,7 @@ export const DeliveriesPage: React.FC = () => {
 
     return (
         <div>
-            <Nav />
+            <Nav right={right}/>
             <DeliveriesTable rows={deliveries} />
             {right >= 1 ? (
                 <CreateNewDeliveryDialog />

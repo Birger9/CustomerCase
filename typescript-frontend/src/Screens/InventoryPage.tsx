@@ -70,7 +70,7 @@ export const InventoryPage: React.FC = () => {
 
     return (
         <div>
-            <Nav />
+            <Nav right={right}/>
             <InventoryTable rows={inventory} />
             {right >= 1 ? (
                 <CreateNewInventoryDialog />

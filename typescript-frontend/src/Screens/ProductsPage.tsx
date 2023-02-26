@@ -70,7 +70,7 @@ export const ProductsPage: React.FC = () => {
 
     return (
         <div>
-            <Nav />
+            <Nav right={right}/>
             <ProductsTable rows={products} />
             {right >= 1 ? (
                 <CreateNewProductDialog />
