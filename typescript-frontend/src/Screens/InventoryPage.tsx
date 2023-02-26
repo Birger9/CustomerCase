@@ -5,6 +5,7 @@ import Nav from "../Components/Nav/Nav";
 
 //import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import CreateNewInventoryDialog from "../Components/CreateNewinventoryDialog";
 
 export const InventoryPage: React.FC = () => {
     // Used for snackbar.
@@ -64,6 +65,7 @@ export const InventoryPage: React.FC = () => {
         <div>
             <Nav />
             <InventoryTable rows={inventory} />
+            <CreateNewInventoryDialog />
         </div>
     );
 }

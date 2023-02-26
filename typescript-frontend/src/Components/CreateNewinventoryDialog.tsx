@@ -53,17 +53,17 @@ function BootstrapDialogTitle(props: DialogTitleProps) {
   );
 }
 
-export default function CreateNewDeliveryDialog() {
+export default function CreateNewInventoryDialog() {
   const [open, setOpened] = useState(false);
 
   // Used for snackbar.
   const [, setOpen] = useState(false);
   const [, setMsg] = useState("");
 
-  // Hooks used for adding new delivery.
-  const [deliveryName, setDeliveryName] = useState("");
-  const [deliveryCity, setDeliveryCity] = useState("");
-  const [quantityMoved, setQuantityMoved] = useState("");
+  // Hooks used for adding new inventory.
+  const [inventoryName, setInventoryName] = useState("");
+  const [inventoryCity, setInventoryCity] = useState("");
+  const [balance, setBalance] = useState("");
 
   const handleClickOpen = () => {
     setOpened(true);
@@ -71,9 +71,9 @@ export default function CreateNewDeliveryDialog() {
 
   const handleClose = () => {
     // Reset values
-    setDeliveryCity("");
-    setDeliveryName("");
-    setQuantityMoved("");
+    setInventoryCity("");
+    setInventoryName("");
+    setBalance("");
     
     setOpened(false);
   };
@@ -83,11 +83,11 @@ export default function CreateNewDeliveryDialog() {
     setMsg(msg);
   };
 
-  const CreateNewDelivery = async () => {
+  const CreateNewInventory = async () => {
     try {
       await axios.post(
-        'http://localhost:4000/delivery/create',
-        { city: deliveryCity, name: deliveryName, quantityMoved: parseInt(quantityMoved) },
+        'http://localhost:4000/inventory-balance/create',
+        { city: inventoryCity, name: inventoryName, balance: parseInt(balance) },
         {
           headers: {
             Accept: 'application/json',
@@ -105,17 +105,17 @@ export default function CreateNewDeliveryDialog() {
     }
 
     // Reset values
-    setDeliveryCity("");
-    setDeliveryName("");
-    setQuantityMoved("");
+    setInventoryCity("");
+    setInventoryName("");
+    setBalance("");
 
     setOpened(false);
     window.location.reload();
   };
 
-  const deliveryNameFieldId = "outlined-delivery-name";
-  const deliveryCityFieldId = "outlined-delivery-city";
-  const deliveryMovedFieldId = "outlined-delivery-moved";
+  const inventoryNameFieldId = "outlined-inventory-name";
+  const inventoryCityFieldId = "outlined-inventory-city";
+  const inventoryBalanceFieldId = "outlined-inventory-balance";
 
   return (
     <div>
@@ -126,7 +126,7 @@ export default function CreateNewDeliveryDialog() {
           'backgroundColor': Colors.cyan,
           ':hover': {backgroundColor: Colors.cyan}}}
       >
-          Add new delivery
+          Add new inventory
       </Button>
       <BootstrapDialog
         onClose={handleClose}
@@ -134,7 +134,7 @@ export default function CreateNewDeliveryDialog() {
         open={open}
       >
         <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-          New delivery
+          New inventory
         </BootstrapDialogTitle>
         <DialogContent dividers>
 
@@ -143,13 +143,13 @@ export default function CreateNewDeliveryDialog() {
           marginBottom: '1vh', maxWidth: '400px'}}
           variant="outlined"
           >
-          <InputLabel htmlFor={deliveryNameFieldId}>
+          <InputLabel htmlFor={inventoryNameFieldId}>
               Product name
           </InputLabel>
           <StringInputField
-              id={deliveryNameFieldId}
-              strValue={deliveryName}
-              setStr={setDeliveryName}
+              id={inventoryNameFieldId}
+              strValue={inventoryName}
+              setStr={setInventoryName}
           />
         </FormControl>
 
@@ -158,13 +158,13 @@ export default function CreateNewDeliveryDialog() {
           marginBottom: '1vh', maxWidth: '400px'}}
           variant="outlined"
           >
-          <InputLabel htmlFor={deliveryCityFieldId}>
+          <InputLabel htmlFor={inventoryCityFieldId}>
               City
           </InputLabel>
           <StringInputField
-              id={deliveryCityFieldId}
-              strValue={deliveryCity}
-              setStr={setDeliveryCity}
+              id={inventoryCityFieldId}
+              strValue={inventoryCity}
+              setStr={setInventoryCity}
           />
         </FormControl>
 
@@ -173,20 +173,20 @@ export default function CreateNewDeliveryDialog() {
           marginBottom: '1vh', maxWidth: '400px'}}
           variant="outlined"
           >
-          <InputLabel htmlFor={deliveryMovedFieldId}>
-              Quantity moved
+          <InputLabel htmlFor={inventoryBalanceFieldId}>
+              Balance
           </InputLabel>
           <StringInputField
-              id={deliveryMovedFieldId}
-              strValue={quantityMoved}
-              setStr={setQuantityMoved}
+              id={inventoryBalanceFieldId}
+              strValue={balance}
+              setStr={setBalance}
           />
         </FormControl>
 
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={CreateNewDelivery}>
-            Create delivery
+          <Button autoFocus onClick={CreateNewInventory}>
+            Create inventory
           </Button>
         </DialogActions>
       </BootstrapDialog>
