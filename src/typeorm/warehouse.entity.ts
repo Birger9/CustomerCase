@@ -11,6 +11,9 @@ export class Warehouse {
   @OneToMany(
     () => InventoryBalance,
     (inventoryBalance) => inventoryBalance.city,
+    {
+      cascade: true,
+    }
   )
   public productConnection: InventoryBalance[];
 }

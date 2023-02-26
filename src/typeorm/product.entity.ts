@@ -23,6 +23,9 @@ export class Product {
   @OneToMany(
     () => InventoryBalance,
     (inventoryBalance) => inventoryBalance.productNumber,
+    {
+      cascade: true,
+    }
   )
   public warehouseConnection: InventoryBalance[];
 }
