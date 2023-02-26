@@ -23,7 +23,7 @@ export const ProductsPage: React.FC = () => {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        const getInventory = async () => {
+        const getProducts = async () => {
             try {
                 const { data, status } = await axios.get(
                   'http://localhost:4000/products',
@@ -50,7 +50,7 @@ export const ProductsPage: React.FC = () => {
             }
         };
 
-        getInventory();
+        getProducts();
     }, [])
 
     return (
