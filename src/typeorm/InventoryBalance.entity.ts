@@ -5,6 +5,7 @@ import { Warehouse } from './warehouse.entity';
 @Entity()
 export class InventoryBalance {
     @PrimaryColumn({
+        name: 'product_number',
         nullable: false,
     })
     productNumber: string;
@@ -24,13 +25,13 @@ export class InventoryBalance {
         eager: true,
         onDelete: 'CASCADE',
     })
-    @JoinColumn({ name: 'productNumber' })
+    @JoinColumn({ name: 'productNumber', referencedColumnName: 'productNumber'  })
     product: Product;
   
     @ManyToOne(() => Warehouse, (warehouse) => warehouse.productConnection, {
         eager: true,
         onDelete: 'CASCADE',
     })
-    @JoinColumn({ name: 'city' })
+    @JoinColumn({ name: 'city', referencedColumnName: 'city'  })
     warehouse: Warehouse;
 }

@@ -27,5 +27,5 @@ export class Product {
       cascade: true,
     }
   )
-  public warehouseConnection: InventoryBalance[];
+  public warehouseConnection!: InventoryBalance[];
 }
