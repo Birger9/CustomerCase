@@ -24,7 +24,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 type data = {
-    productNumber: string,
+    name: string,
     city: string,
     balance: number
 }
@@ -35,16 +35,16 @@ const CustomizedTables: React.FC<{ rows: data[] }> = ({ rows }) => {
       <Table sx={{ minWidth: 700 }}>
         <TableHead>
           <TableRow>
-            <StyledTableCell>Product Number</StyledTableCell>
+            <StyledTableCell>Product Name</StyledTableCell>
             <StyledTableCell align="left">City</StyledTableCell>
             <StyledTableCell align="left">Balance</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <StyledTableRow key={row.productNumber}>
+            <StyledTableRow key={row.name}>
               <StyledTableCell component="th" scope="row">
-                {row.productNumber}
+                {row.name}
               </StyledTableCell>
               <StyledTableCell align="left">{row.city}</StyledTableCell>
               <StyledTableCell align="left">{row.balance}</StyledTableCell>

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import InventoryTable from "../Components/InventoryTable";
 import Nav from "../Components/Nav/Nav";
 
@@ -10,8 +11,7 @@ export const InventoryPage: React.FC = () => {
     const [open, setOpen] = useState(false);
     const [msg, setMsg] = useState("");
 
-    //const navigate = useNavigate();
-    //const handleGoToRegister = () => navigate("/register");
+    const [inventory, setInventory] = useState([]);
     
     const handleClose = () => {
         setOpen(false);
@@ -21,25 +21,42 @@ export const InventoryPage: React.FC = () => {
         setOpen(true);
         setMsg(msg);
     };
-
-    function createData(
-        productNumber: string,
-        city: string,
-        balance: number,
-    ) {
-        return { productNumber, city, balance, };
-    }
       
-    const rows = [
-        createData('JTelefon', "Cupertino", 170000),
-        createData('JTelefon', "Norrköping", 55000),
-        createData('JTelefon', "Frankfurt", 101700)
-    ]
+    useEffect(() => {
+        const getInventory = async () => {
+            try {
+                const { data, status } = await axios.get(
+                  'http://localhost:4000/inventory-balance',
+                  {
+                    headers: {
+                      Accept: 'application/json',
+                      Authorization: "Bearer " + localStorage.getItem("token")
+                    },
+                  },
+                );
+    
+                if(status === 200) {
+                    setInventory(data);
+                }
+            
+            } catch (error) {
+                
+                if (axios.isAxiosError(error)) {
+                    openSnackBar(error.message);
+                } 
+                else {
+                    console.log('unexpected error: ', error);
+                }
+            }
+        };
+
+        getInventory();
+    }, [])
 
     return (
         <div>
             <Nav />
-            <InventoryTable rows={rows} />
+            <InventoryTable rows={inventory} />
         </div>
     );
 }
