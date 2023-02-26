@@ -53,17 +53,17 @@ function BootstrapDialogTitle(props: DialogTitleProps) {
   );
 }
 
-export default function CreateNewProductDialog() {
+export default function CreateNewDeliveryDialog() {
   const [open, setOpened] = useState(false);
 
   // Used for snackbar.
   const [, setOpen] = useState(false);
   const [, setMsg] = useState("");
 
-  // Hooks used for adding new product.
-  const [productNumber, setProductNumber] = useState("");
-  const [productName, setProductName] = useState("");
-  const [productPrice, setProductPrice] = useState("");
+  // Hooks used for adding new delivery.
+  const [deliveryName, setDeliveryName] = useState("");
+  const [deliveryCity, setDeliveryCity] = useState("");
+  const [quantityMoved, setQuantityMoved] = useState("");
 
   const handleClickOpen = () => {
     setOpened(true);
@@ -71,9 +71,9 @@ export default function CreateNewProductDialog() {
 
   const handleClose = () => {
     // Reset values
-    setProductNumber("");
-    setProductName("");
-    setProductPrice("");
+    setDeliveryCity("");
+    setDeliveryName("");
+    setQuantityMoved("");
     
     setOpened(false);
   };
@@ -83,11 +83,11 @@ export default function CreateNewProductDialog() {
     setMsg(msg);
   };
 
-  const CreateNewProduct = async () => {
+  const CreateNewDelivery = async () => {
     try {
       await axios.post(
-        'http://localhost:4000/products/create',
-        { productNumber: productNumber, name: productName, price: parseInt(productPrice) },
+        'http://localhost:4000/delivery/create',
+        { city: deliveryCity, name: deliveryName, quantityMoved: parseInt(quantityMoved) },
         {
           headers: {
             Accept: 'application/json',
@@ -105,17 +105,17 @@ export default function CreateNewProductDialog() {
     }
 
     // Reset values
-    setProductNumber("");
-    setProductName("");
-    setProductPrice("");
+    setDeliveryCity("");
+    setDeliveryName("");
+    setQuantityMoved("");
 
-    setOpened(false);
-    window.location.reload();
+    //setOpened(false);
+    //window.location.reload();
   };
 
-  const productNumberFieldId = "outlined-product-number";
-  const productNameFieldId = "outlined-product-name";
-  const productPriceFieldId = "outlined-product-price";
+  const deliveryNameFieldId = "outlined-delivery-name";
+  const deliveryCityFieldId = "outlined-delivery-city";
+  const deliveryMovedFieldId = "outlined-delivery-moved";
 
   return (
     <div>
@@ -126,7 +126,7 @@ export default function CreateNewProductDialog() {
           'backgroundColor': Colors.cyan,
           ':hover': {backgroundColor: Colors.cyan}}}
       >
-          Add new product
+          Add new delivery
       </Button>
       <BootstrapDialog
         onClose={handleClose}
@@ -134,7 +134,7 @@ export default function CreateNewProductDialog() {
         open={open}
       >
         <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-          New product
+          New delivery
         </BootstrapDialogTitle>
         <DialogContent dividers>
 
@@ -143,28 +143,13 @@ export default function CreateNewProductDialog() {
           marginBottom: '1vh', maxWidth: '400px'}}
           variant="outlined"
           >
-          <InputLabel htmlFor={productNumberFieldId}>
-              Product number
-          </InputLabel>
-          <StringInputField
-              id={productNumberFieldId}
-              strValue={productNumber}
-              setStr={setProductNumber}
-          />
-        </FormControl>
-
-        <FormControl 
-          sx={{m: 1, width: '80vw', marginTop: '1vh',
-          marginBottom: '1vh', maxWidth: '400px'}}
-          variant="outlined"
-          >
-          <InputLabel htmlFor={productNameFieldId}>
+          <InputLabel htmlFor={deliveryNameFieldId}>
               Product name
           </InputLabel>
           <StringInputField
-              id={productNameFieldId}
-              strValue={productName}
-              setStr={setProductName}
+              id={deliveryNameFieldId}
+              strValue={deliveryName}
+              setStr={setDeliveryName}
           />
         </FormControl>
 
@@ -173,20 +158,35 @@ export default function CreateNewProductDialog() {
           marginBottom: '1vh', maxWidth: '400px'}}
           variant="outlined"
           >
-          <InputLabel htmlFor={productPriceFieldId}>
-              Price
+          <InputLabel htmlFor={deliveryCityFieldId}>
+              City
           </InputLabel>
           <StringInputField
-              id={productPriceFieldId}
-              strValue={productPrice}
-              setStr={setProductPrice}
+              id={deliveryCityFieldId}
+              strValue={deliveryCity}
+              setStr={setDeliveryCity}
+          />
+        </FormControl>
+
+        <FormControl 
+          sx={{m: 1, width: '80vw', marginTop: '1vh',
+          marginBottom: '1vh', maxWidth: '400px'}}
+          variant="outlined"
+          >
+          <InputLabel htmlFor={deliveryMovedFieldId}>
+              Quantity moved
+          </InputLabel>
+          <StringInputField
+              id={deliveryMovedFieldId}
+              strValue={quantityMoved}
+              setStr={setQuantityMoved}
           />
         </FormControl>
 
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={CreateNewProduct}>
-            Create product
+          <Button autoFocus onClick={CreateNewDelivery}>
+            Create delivery
           </Button>
         </DialogActions>
       </BootstrapDialog>

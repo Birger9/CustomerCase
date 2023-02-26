@@ -1,29 +1,69 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import CreateNewDeliveryDialog from "../Components/CreateNewDeliveryDialog";
+import DeliveriesTable from "../Components/DeliveriesTable";
 import Nav from "../Components/Nav/Nav";
-
-//import jwt_decode from "jwt-decode";
-//import { useNavigate } from "react-router-dom";
 
 export const DeliveriesPage: React.FC = () => {
     // Used for snackbar.
-    const [open, setOpen] = useState(false);
-    const [msg, setMsg] = useState("");
+    const [, setOpen] = useState(false);
+    const [, setMsg] = useState("");
 
-    //const navigate = useNavigate();
-    //const handleGoToRegister = () => navigate("/register");
-    
-    const handleClose = () => {
-        setOpen(false);
-    };
+    const [deliveries, setDeliveries] = useState([]);
+    const navigate = useNavigate();
 
     const openSnackBar = (msg: string) => {
         setOpen(true);
         setMsg(msg);
     };
 
+    useEffect(() => {
+        if (typeof (Storage) !== "undefined") {
+            let token = localStorage.getItem("token");
+            if (!token) {
+                navigate("/");
+            }
+        }
+        else {
+            navigate("/");
+        }
+
+        const getDeliveries = async () => {
+            try {
+                const { data, status } = await axios.get(
+                  'http://localhost:4000/delivery',
+                  {
+                    headers: {
+                      Accept: 'application/json',
+                      Authorization: "Bearer " + localStorage.getItem("token")
+                    },
+                  },
+                );
+    
+                if(status === 200) {
+                    setDeliveries(data);
+                }
+            
+            } catch (error) {
+                
+                if (axios.isAxiosError(error)) {
+                    openSnackBar(error.message);
+                } 
+                else {
+                    console.log('unexpected error: ', error);
+                }
+            }
+        };
+
+        getDeliveries();
+    }, [])
+
     return (
         <div>
             <Nav />
+            <DeliveriesTable rows={deliveries} />
+            <CreateNewDeliveryDialog />
         </div>
     );
 }
