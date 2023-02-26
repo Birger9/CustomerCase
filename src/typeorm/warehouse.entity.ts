@@ -1,4 +1,5 @@
 import { Entity, OneToMany, PrimaryColumn } from 'typeorm';
+import { Delivery } from './delivery.entity';
 import { InventoryBalance } from './InventoryBalance.entity';
 
 @Entity()
@@ -16,4 +17,13 @@ export class Warehouse {
     }
   )
   public productConnection!: InventoryBalance[];
+
+  @OneToMany(
+    () => Delivery,
+    (delivery) => delivery.city,
+    {
+      cascade: true,
+    }
+  )
+  public deliveryConnection!: Delivery[];
 }

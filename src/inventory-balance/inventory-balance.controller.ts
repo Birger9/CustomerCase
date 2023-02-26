@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, Post, UseGuards, UsePipes, ValidationPipe
 import { HasRights } from 'src/auth/has-rights.decorator';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { RightsGuard } from 'src/auth/rights.guard';
-import { CreateInventoryBalanceDto } from 'src/dtos/inventory-balance.dto';
+import { CreateInventoryBalanceDto } from 'src/dtos/inventory-balance.dtos';
 import { Rights } from 'src/enums/rights.enum';
 import { InventoryBalance } from 'src/typeorm';
 import { InventoryBalanceService } from './inventory-balance.service';

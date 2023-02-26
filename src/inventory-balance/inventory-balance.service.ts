@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateInventoryBalanceDto } from 'src/dtos/inventory-balance.dto';
+import { CreateInventoryBalanceDto } from 'src/dtos/inventory-balance.dtos';
 import { Employee, InventoryBalance } from 'src/typeorm';
 import { Repository } from 'typeorm';
 
