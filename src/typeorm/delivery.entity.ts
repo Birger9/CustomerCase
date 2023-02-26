@@ -29,16 +29,14 @@ export class Delivery {
     date: Date;
   
     @ManyToOne(() => Product, (product) => product.deliveryConnection, {
-        eager: true,
         onDelete: 'CASCADE',
     })
     @JoinColumn({ name: 'name'})
     product: Product;
   
     @ManyToOne(() => Warehouse, (warehouse) => warehouse.deliveryConnection, {
-        eager: true,
         onDelete: 'CASCADE',
     })
-    @JoinColumn({ name: 'city' })
+    @JoinColumn({ name: 'city'})
     warehouse: Warehouse;
 }
