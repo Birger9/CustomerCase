@@ -2,8 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Nav from "../Components/Nav/Nav";
 import ProductsTable from "../Components/ProductsTable";
+import jwt_decode from "jwt-decode";
 
-//import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import CreateNewProductDialog from "../Components/CreateNewProductDialog";
 
@@ -11,11 +11,8 @@ export const ProductsPage: React.FC = () => {
     // Used for snackbar.
     const [, setOpen] = useState(false);
     const [, setMsg] = useState("");
+    const [right, setRight] = useState(0);
     
-    const handleClose = () => {
-        setOpen(false);
-    };
-
     const openSnackBar = (msg: string) => {
         setOpen(true);
         setMsg(msg);
@@ -29,6 +26,12 @@ export const ProductsPage: React.FC = () => {
             let token = localStorage.getItem("token");
             if (!token) {
                 navigate("/");
+            } else {
+                let data = jwt_decode(token);
+                if(data) {
+                    const info = JSON.parse(JSON.stringify(data))
+                    setRight(info.sub);
+                }
             }
         }
         else {
@@ -69,7 +72,9 @@ export const ProductsPage: React.FC = () => {
         <div>
             <Nav />
             <ProductsTable rows={products} />
-            <CreateNewProductDialog />
+            {right >= 1 ? (
+                <CreateNewProductDialog />
+            ) : ("")}
         </div>
     );
 }

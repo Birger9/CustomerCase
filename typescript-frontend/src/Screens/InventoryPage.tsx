@@ -2,8 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import InventoryTable from "../Components/InventoryTable";
 import Nav from "../Components/Nav/Nav";
+import jwt_decode from "jwt-decode";
 
-//import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import CreateNewInventoryDialog from "../Components/CreateNewinventoryDialog";
 
@@ -11,6 +11,7 @@ export const InventoryPage: React.FC = () => {
     // Used for snackbar.
     const [, setOpen] = useState(false);
     const [, setMsg] = useState("");
+    const [right, setRight] = useState(0);
 
     const [inventory, setInventory] = useState([]);
     const navigate = useNavigate();
@@ -25,6 +26,12 @@ export const InventoryPage: React.FC = () => {
             let token = localStorage.getItem("token");
             if (!token) {
                 navigate("/");
+            } else {
+                let data = jwt_decode(token);
+                if(data) {
+                    const info = JSON.parse(JSON.stringify(data))
+                    setRight(info.sub);
+                }
             }
         }
         else {
@@ -65,7 +72,9 @@ export const InventoryPage: React.FC = () => {
         <div>
             <Nav />
             <InventoryTable rows={inventory} />
-            <CreateNewInventoryDialog />
+            {right >= 1 ? (
+                <CreateNewInventoryDialog />
+            ) : ("")}
         </div>
     );
 }

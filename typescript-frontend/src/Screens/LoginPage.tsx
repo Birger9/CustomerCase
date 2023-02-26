@@ -57,14 +57,6 @@ export const LoginPage: React.FC = () => {
                 localStorage.setItem("token", accessToken);
 
                 navigate("/inventory");
-
-                /*
-                let t = localStorage.getItem("token");
-                if(t) {
-                    let decoded = jwt_decode(t);
-                    console.log(decoded);
-                }
-                */
             }
           } catch (error) {
             

@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
+
 import CreateNewDeliveryDialog from "../Components/CreateNewDeliveryDialog";
 import DeliveriesTable from "../Components/DeliveriesTable";
 import Nav from "../Components/Nav/Nav";
@@ -9,6 +11,8 @@ export const DeliveriesPage: React.FC = () => {
     // Used for snackbar.
     const [, setOpen] = useState(false);
     const [, setMsg] = useState("");
+
+    const [right, setRight] = useState(0);
 
     const [deliveries, setDeliveries] = useState([]);
     const navigate = useNavigate();
@@ -23,6 +27,12 @@ export const DeliveriesPage: React.FC = () => {
             let token = localStorage.getItem("token");
             if (!token) {
                 navigate("/");
+            } else {
+                let data = jwt_decode(token);
+                if(data) {
+                    const info = JSON.parse(JSON.stringify(data))
+                    setRight(info.sub);
+                }
             }
         }
         else {
@@ -63,7 +73,9 @@ export const DeliveriesPage: React.FC = () => {
         <div>
             <Nav />
             <DeliveriesTable rows={deliveries} />
-            <CreateNewDeliveryDialog />
+            {right >= 1 ? (
+                <CreateNewDeliveryDialog />
+            ) : ("")}
         </div>
     );
 }

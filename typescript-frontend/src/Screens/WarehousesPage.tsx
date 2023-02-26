@@ -2,8 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Nav from "../Components/Nav/Nav";
 import WarehousesTable from "../Components/WarehousesTable";
+import jwt_decode from "jwt-decode";
 
-//import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import CreateNewWarehouseDialog from "../Components/CreateNewWarehouseDialog";
 
@@ -11,11 +11,9 @@ export const WarehousesPage: React.FC = () => {
     // Used for snackbar.
     const [, setOpen] = useState(false);
     const [, setMsg] = useState("");
-    
-    const handleClose = () => {
-        setOpen(false);
-    };
 
+    const [right, setRight] = useState(0);
+    
     const openSnackBar = (msg: string) => {
         setOpen(true);
         setMsg(msg);
@@ -29,6 +27,12 @@ export const WarehousesPage: React.FC = () => {
             let token = localStorage.getItem("token");
             if (!token) {
                 navigate("/");
+            } else {
+                let data = jwt_decode(token);
+                if(data) {
+                    const info = JSON.parse(JSON.stringify(data))
+                    setRight(info.sub);
+                }
             }
         }
         else {
@@ -69,7 +73,9 @@ export const WarehousesPage: React.FC = () => {
         <div>
             <Nav />
             <WarehousesTable rows={warehouses} />
-            <CreateNewWarehouseDialog />
+            {right >= 1 ? (
+                <CreateNewWarehouseDialog />
+            ) : ("")}
         </div>
     );
 }
