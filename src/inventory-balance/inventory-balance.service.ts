@@ -23,10 +23,10 @@ export class InventoryBalanceService {
         throw new HttpException('That inventory already exists', HttpStatus.CONFLICT);
       }
 
-      async updateInventoryBalance(productNumber: string, city: string, quantityMoved: number) {
-        let inventoryBalance = await this.findInventoryBalanceByProductNumberAndCity(productNumber, city);
+      async updateInventoryBalance(id: number, quantityMoved: string) {
+        let inventoryBalance = await this.findInventoryBalanceByProductNumberAndCity(id);
 
-        let newbalance = inventoryBalance.balance + quantityMoved;
+        let newbalance = inventoryBalance.balance + parseInt(quantityMoved);
         inventoryBalance.balance = newbalance;
 
         return this.inventoryBalanceRepository.save(inventoryBalance);
@@ -36,8 +36,8 @@ export class InventoryBalanceService {
         return this.inventoryBalanceRepository.find();
       }
           
-      async findInventoryBalanceByProductNumberAndCity(productNumber: string, city: string)  {
-        let inventoryBalance = await this.inventoryBalanceRepository.findOne({where: {productNumber: productNumber, city: city}});
+      async findInventoryBalanceByProductNumberAndCity(id: number)  {
+        let inventoryBalance = await this.inventoryBalanceRepository.findOne({where: { id: id }});
         if (inventoryBalance) {
           return inventoryBalance;
         }

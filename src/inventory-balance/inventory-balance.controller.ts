@@ -20,9 +20,16 @@ export class InventoryBalanceController {
 
     @HasRights(Rights.Employee)
     @UseGuards(JwtAuthGuard, RightsGuard)
-    @Get('productnumber/:productnumber/city/:city')
-    findInventoryBalanceByProductNumberAndCity(@Param('productnumber') productnumber: string, @Param('city') city: string): Promise<InventoryBalance> {
-        return this.inventoryBalanceService.findInventoryBalanceByProductNumberAndCity(productnumber, city);
+    @Get('id/:id')
+    findInventoryBalanceByProductNumberAndCity(@Param('id') id: number): Promise<InventoryBalance> {
+        return this.inventoryBalanceService.findInventoryBalanceByProductNumberAndCity(id);
+    }
+
+    @HasRights(Rights.Manager)
+    @UseGuards(JwtAuthGuard, RightsGuard)
+    @Get('id/:id/quantity/:quantity')
+    updateInventoryBalance(@Param('id') id: number, @Param('quantity') quantity: string): Promise<InventoryBalance> {
+        return this.inventoryBalanceService.updateInventoryBalance(id, quantity);
     }
 
     @HasRights(Rights.Manager)

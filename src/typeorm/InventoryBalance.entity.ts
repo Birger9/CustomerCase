@@ -1,16 +1,21 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
 import { Product } from './product.entity';
 import { Warehouse } from './warehouse.entity';
 
 @Entity()
 export class InventoryBalance {
-    @PrimaryColumn({
+    @PrimaryGeneratedColumn({
+        type: 'int',
+    })
+    id: number
+
+    @Column({
         name: 'product_number',
         nullable: false,
     })
     productNumber: string;
   
-    @PrimaryColumn({
+    @Column({
         nullable: false,
     })
     city: string;
@@ -25,13 +30,13 @@ export class InventoryBalance {
         eager: true,
         onDelete: 'CASCADE',
     })
-    @JoinColumn({ name: 'productNumber', referencedColumnName: 'productNumber'  })
+    @JoinColumn({ name: 'productNumber'})
     product: Product;
   
     @ManyToOne(() => Warehouse, (warehouse) => warehouse.productConnection, {
         eager: true,
         onDelete: 'CASCADE',
     })
-    @JoinColumn({ name: 'city', referencedColumnName: 'city'  })
+    @JoinColumn({ name: 'city' })
     warehouse: Warehouse;
 }
