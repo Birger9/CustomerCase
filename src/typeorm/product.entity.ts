@@ -4,13 +4,13 @@ import { InventoryBalance } from './InventoryBalance.entity';
 
 @Entity()
 export class Product {
-  @PrimaryColumn({
+  @Column({
     name: 'product_number',
     nullable: false,
   })
   productNumber: string;
 
-  @Column({
+  @PrimaryColumn({
     nullable: false,
   })
   name: string;
@@ -23,7 +23,7 @@ export class Product {
 
   @OneToMany(
     () => InventoryBalance,
-    (inventoryBalance) => inventoryBalance.productNumber,
+    (inventoryBalance) => inventoryBalance.name,
     {
       cascade: true,
     }
@@ -32,7 +32,7 @@ export class Product {
 
   @OneToMany(
     () => Delivery,
-    (delivery) => delivery.productNumber,
+    (delivery) => delivery.name,
     {
       cascade: true,
     }

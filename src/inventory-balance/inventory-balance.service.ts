@@ -11,10 +11,10 @@ export class InventoryBalanceService {
     ) {}
         
   async createInventoryBalance(createInventoryBalanceDto: CreateInventoryBalanceDto) {
-    let productNumber = createInventoryBalanceDto.productNumber;
+    let name = createInventoryBalanceDto.name;
     let city = createInventoryBalanceDto.city;
 
-    let inventoryBalance = await this.inventoryBalanceRepository.findOne({where: {productNumber: productNumber, city: city}});
+    let inventoryBalance = await this.inventoryBalanceRepository.findOne({where: {name: name, city: city}});
     if (!inventoryBalance) {
       const newInventoryBalance = this.inventoryBalanceRepository.create(createInventoryBalanceDto);
       return this.inventoryBalanceRepository.save(newInventoryBalance);

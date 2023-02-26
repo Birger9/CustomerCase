@@ -10,10 +10,9 @@ export class InventoryBalance {
     id: number
 
     @Column({
-        name: 'product_number',
         nullable: false,
     })
-    productNumber: string;
+    name: string;
   
     @Column({
         nullable: false,
@@ -27,14 +26,12 @@ export class InventoryBalance {
     balance: number
   
     @ManyToOne(() => Product, (product) => product.warehouseConnection, {
-        eager: true,
         onDelete: 'CASCADE',
     })
-    @JoinColumn({ name: 'productNumber'})
+    @JoinColumn({ name: 'name'})
     product: Product;
   
     @ManyToOne(() => Warehouse, (warehouse) => warehouse.productConnection, {
-        eager: true,
         onDelete: 'CASCADE',
     })
     @JoinColumn({ name: 'city' })

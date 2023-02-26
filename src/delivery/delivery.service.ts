@@ -11,10 +11,10 @@ export class DeliveryService {
       ) {}
           
     async createDelivery(createDeliveryDto: CreateDeliveryDto) {
-      let productNumber = createDeliveryDto.productNumber;
+      let name = createDeliveryDto.name;
       let city = createDeliveryDto.city;
   
-      let inventoryBalance = await this.deliveryRepository.findOne({where: {productNumber: productNumber, city: city}});
+      let inventoryBalance = await this.deliveryRepository.findOne({where: {name: name, city: city}});
       if (!inventoryBalance) {
         const newInventoryBalance = this.deliveryRepository.create(createDeliveryDto);
         return this.deliveryRepository.save(newInventoryBalance);

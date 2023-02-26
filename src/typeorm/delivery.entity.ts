@@ -10,10 +10,9 @@ export class Delivery {
     id: number
 
     @Column({
-        name: 'product_number',
         nullable: false,
     })
-    productNumber: string;
+    name: string;
   
     @Column({
         nullable: false,
@@ -33,7 +32,7 @@ export class Delivery {
         eager: true,
         onDelete: 'CASCADE',
     })
-    @JoinColumn({ name: 'productNumber'})
+    @JoinColumn({ name: 'name'})
     product: Product;
   
     @ManyToOne(() => Warehouse, (warehouse) => warehouse.deliveryConnection, {
