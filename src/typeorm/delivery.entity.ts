@@ -21,21 +21,22 @@ export class Delivery {
     city: string;
 
     @Column({
+        type: 'int',
         nullable: false,
     })
-    quantityMoved: string
+    quantityMoved: number
 
     @CreateDateColumn()
     date: Date;
   
-    @ManyToOne(() => Product, (product) => product.warehouseConnection, {
+    @ManyToOne(() => Product, (product) => product.deliveryConnection, {
         eager: true,
         onDelete: 'CASCADE',
     })
     @JoinColumn({ name: 'productNumber'})
     product: Product;
   
-    @ManyToOne(() => Warehouse, (warehouse) => warehouse.productConnection, {
+    @ManyToOne(() => Warehouse, (warehouse) => warehouse.deliveryConnection, {
         eager: true,
         onDelete: 'CASCADE',
     })

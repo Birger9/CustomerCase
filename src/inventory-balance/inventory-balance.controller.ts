@@ -22,7 +22,7 @@ export class InventoryBalanceController {
     @UseGuards(JwtAuthGuard, RightsGuard)
     @Get('id/:id')
     findInventoryBalanceByProductNumberAndCity(@Param('id') id: number): Promise<InventoryBalance> {
-        return this.inventoryBalanceService.findInventoryBalanceByProductNumberAndCity(id);
+        return this.inventoryBalanceService.findInventoryBalanceById(id);
     }
 
     @HasRights(Rights.Manager)
