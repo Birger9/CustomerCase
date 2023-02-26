@@ -4,8 +4,9 @@ import Nav from "../Components/Nav/Nav";
 import jwt_decode from "jwt-decode";
 
 import { useNavigate } from "react-router-dom";
-import CreateNewInventoryDialog from "../Components/CreateNewinventoryDialog";
+
 import EmployeeTable from "../Components/EmployeeTable";
+import CreateNewEmployeeDialog from "../Components/CreateNewEmployeeDialog";
 
 export const EmployeePage: React.FC = () => {
     // Used for snackbar.
@@ -73,7 +74,7 @@ export const EmployeePage: React.FC = () => {
             <Nav right={right}/>
             <EmployeeTable rows={employees} />
             {right >= 1 ? (
-                <CreateNewInventoryDialog />
+                <CreateNewEmployeeDialog />
             ) : ("")}
         </div>
     );
