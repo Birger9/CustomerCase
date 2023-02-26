@@ -76,7 +76,7 @@ export default function CreateNewProductDialog() {
   };
 
   const openSnackBar = (msg: string) => {
-    setOpened(true);
+    setOpen(true);
     setMsg(msg);
   };
 
