@@ -8,4 +8,4 @@ export const SNACKBAR_REGISTER_ERROR_MSG = "Email or password is incorrectly inp
 
 export const SNACKBAR_REGISTER_DUPLICATE_MSG = "Email is already registered";
 
-export const SNACKBAR_USER_CREATED = "Registration was successfull"
+export const SNACKBAR_PRODUCT_ALREADY_EXISTS = "Product alreay exists"

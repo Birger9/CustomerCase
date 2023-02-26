@@ -5,6 +5,7 @@ import ProductsTable from "../Components/ProductsTable";
 
 //import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import CreateNewProductDialog from "../Components/CreateNewProductDialog";
 
 export const ProductsPage: React.FC = () => {
     // Used for snackbar.
@@ -68,6 +69,7 @@ export const ProductsPage: React.FC = () => {
         <div>
             <Nav />
             <ProductsTable rows={products} />
+            <CreateNewProductDialog />
         </div>
     );
 }

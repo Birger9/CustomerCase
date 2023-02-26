@@ -8,4 +8,5 @@ export const Colors = {
     blue: '#3e00ff',
     purple: '#ae00fb',
     transparentWhite: 'rgba(255,255,255,0.3)',
+    gray: 'rgb(235, 235, 235);'
 };
