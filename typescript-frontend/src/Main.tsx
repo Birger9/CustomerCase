@@ -6,6 +6,7 @@ import { InventoryPage } from './Screens/InventoryPage';
 import { ProductsPage } from './Screens/ProductsPage';
 import { WarehousesPage } from './Screens/WarehousesPage';
 import { DeliveriesPage } from './Screens/DeliveriesPage';
+import { EmployeePage } from './Screens/EmployeePage';
 
 const Main = () => {
     return (     
@@ -15,6 +16,7 @@ const Main = () => {
             <Route path='/products' element={<ProductsPage/>} />
             <Route path='/warehouses' element={<WarehousesPage/>} />
             <Route path='/deliveries' element={<DeliveriesPage/>} />
+            <Route path='/employee' element={<EmployeePage/>} />
         </Routes>
     );
 }
