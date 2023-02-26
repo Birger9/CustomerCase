@@ -7,14 +7,12 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import Typography from '@mui/material/Typography';
 import { Colors } from '../Assets/Colors';
 import { FormControl, InputLabel } from '@mui/material';
 import { StringInputField } from './StringInputField';
 import { useState } from 'react';
 import axios from 'axios';
-import { SNACKBAR_PRODUCT_ALREADY_EXISTS } from '../Assets/Constants';
-import { stat } from 'fs';
+
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -55,17 +53,15 @@ function BootstrapDialogTitle(props: DialogTitleProps) {
   );
 }
 
-export default function CreateNewProductDialog() {
+export default function CreateNewWarehouseDialog() {
   const [open, setOpened] = useState(false);
 
   // Used for snackbar.
   const [, setOpen] = useState(false);
   const [, setMsg] = useState("");
 
-  // Hooks used for adding new product.
-  const [productNumber, setProductNumber] = useState("");
-  const [productName, setProductName] = useState("");
-  const [productPrice, setProductPrice] = useState("");
+  // Hooks used for adding new warehouse.
+  const [city, setCity] = useState("");
 
   const handleClickOpen = () => {
     setOpened(true);
@@ -73,9 +69,7 @@ export default function CreateNewProductDialog() {
 
   const handleClose = () => {
     // Reset values
-    setProductNumber("");
-    setProductName("");
-    setProductPrice("");
+    setCity("");
     
     setOpened(false);
   };
@@ -85,11 +79,11 @@ export default function CreateNewProductDialog() {
     setMsg(msg);
   };
 
-  const CreateNewProduct = async () => {
+  const CreateNewWarehouse = async () => {
     try {
       await axios.post(
-        'http://localhost:4000/products/create',
-        { productNumber: productNumber, name: productName, price: parseInt(productPrice) },
+        'http://localhost:4000/warehouses/create',
+        { city: city },
         {
           headers: {
             Accept: 'application/json',
@@ -105,30 +99,25 @@ export default function CreateNewProductDialog() {
             console.log('unexpected error: ', error);
         }
     }
-
     // Reset values
-    setProductNumber("");
-    setProductName("");
-    setProductPrice("");
+    setCity("");
 
     setOpened(false);
     window.location.reload();
   };
 
-  const productNumberFieldId = "outlined-product-number";
-  const productNameFieldId = "outlined-product-name";
-  const productPriceFieldId = "outlined-product-price";
+  const cityFieldId = "outlined-city";
 
   return (
     <div>
       <Button 
           onClick={handleClickOpen} 
           variant="contained"
-          sx={{'width': '80vw', 'maxWidth': '200px',
+          sx={{'width': '130vw', 'maxWidth': '300px',
           'backgroundColor': Colors.cyan,
           ':hover': {backgroundColor: Colors.cyan}}}
       >
-          Add new product
+          Add new warehouse
       </Button>
       <BootstrapDialog
         onClose={handleClose}
@@ -136,7 +125,7 @@ export default function CreateNewProductDialog() {
         open={open}
       >
         <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-          New product
+          New warehouse
         </BootstrapDialogTitle>
         <DialogContent dividers>
 
@@ -145,50 +134,20 @@ export default function CreateNewProductDialog() {
           marginBottom: '1vh', maxWidth: '400px'}}
           variant="outlined"
           >
-          <InputLabel htmlFor={productNumberFieldId}>
-              Product number
+          <InputLabel htmlFor={cityFieldId}>
+              City
           </InputLabel>
           <StringInputField
-              id={productNumberFieldId}
-              strValue={productNumber}
-              setStr={setProductNumber}
-          />
-        </FormControl>
-
-        <FormControl 
-          sx={{m: 1, width: '80vw', marginTop: '1vh',
-          marginBottom: '1vh', maxWidth: '400px'}}
-          variant="outlined"
-          >
-          <InputLabel htmlFor={productNameFieldId}>
-              Product name
-          </InputLabel>
-          <StringInputField
-              id={productNameFieldId}
-              strValue={productName}
-              setStr={setProductName}
-          />
-        </FormControl>
-
-        <FormControl 
-          sx={{m: 1, width: '80vw', marginTop: '1vh',
-          marginBottom: '1vh', maxWidth: '400px'}}
-          variant="outlined"
-          >
-          <InputLabel htmlFor={productPriceFieldId}>
-              Price
-          </InputLabel>
-          <StringInputField
-              id={productPriceFieldId}
-              strValue={productPrice}
-              setStr={setProductPrice}
+              id={cityFieldId}
+              strValue={city}
+              setStr={setCity}
           />
         </FormControl>
 
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={CreateNewProduct}>
-            Create product
+          <Button autoFocus onClick={CreateNewWarehouse}>
+            Create warehouse
           </Button>
         </DialogActions>
       </BootstrapDialog>

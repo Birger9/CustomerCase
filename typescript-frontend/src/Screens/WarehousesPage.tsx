@@ -5,6 +5,7 @@ import WarehousesTable from "../Components/WarehousesTable";
 
 //import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import CreateNewWarehouseDialog from "../Components/CreateNewWarehouseDialog";
 
 export const WarehousesPage: React.FC = () => {
     // Used for snackbar.
@@ -68,6 +69,7 @@ export const WarehousesPage: React.FC = () => {
         <div>
             <Nav />
             <WarehousesTable rows={warehouses} />
+            <CreateNewWarehouseDialog />
         </div>
     );
 }
