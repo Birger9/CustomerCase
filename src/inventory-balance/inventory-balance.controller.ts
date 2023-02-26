@@ -29,7 +29,7 @@ export class InventoryBalanceController {
     @UseGuards(JwtAuthGuard, RightsGuard)
     @Get('id/:id/quantity/:quantity')
     updateInventoryBalance(@Param('id') id: number, @Param('quantity') quantity: string): Promise<InventoryBalance> {
-        return this.inventoryBalanceService.updateInventoryBalance(id, quantity);
+        return this.inventoryBalanceService.updateInventoryBalanceById(id, quantity);
     }
 
     @HasRights(Rights.Manager)

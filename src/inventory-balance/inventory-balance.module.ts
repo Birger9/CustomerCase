@@ -7,6 +7,7 @@ import { InventoryBalanceService } from './inventory-balance.service';
 @Module({
   imports: [TypeOrmModule.forFeature([InventoryBalance]),],
   controllers: [InventoryBalanceController],
-  providers: [InventoryBalanceService]
+  providers: [InventoryBalanceService, InventoryBalanceController],
+  exports: [InventoryBalanceService],
 })
 export class InventoryBalanceModule {}

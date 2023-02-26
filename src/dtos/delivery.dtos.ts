@@ -1,4 +1,4 @@
-import { IsNotEmpty, MinLength, IsInt, Min } from "class-validator";
+import { IsNotEmpty, MinLength, IsInt } from "class-validator";
 
 export class CreateDeliveryDto {
     @IsNotEmpty()
@@ -11,6 +11,5 @@ export class CreateDeliveryDto {
 
     @IsNotEmpty()
     @IsInt()
-    @Min(0)
     quantityMoved: number;
 }

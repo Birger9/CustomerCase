@@ -23,10 +23,13 @@ export class InventoryBalanceService {
     throw new HttpException('That inventory already exists', HttpStatus.CONFLICT);
   }
 
-  async updateInventoryBalance(id: number, quantityMoved: string) {
+  async updateInventoryBalanceById(id: number, quantityMoved: string) {
     let inventoryBalance = await this.findInventoryBalanceById(id);
 
     let newbalance = inventoryBalance.balance + parseInt(quantityMoved);
+    if(newbalance < 0) {
+      throw new HttpException('Inventory balance can not be lower than 0', HttpStatus.BAD_REQUEST);
+    }
     inventoryBalance.balance = newbalance;
 
     return this.inventoryBalanceRepository.save(inventoryBalance);
@@ -43,5 +46,25 @@ export class InventoryBalanceService {
     }
     
     throw new HttpException('Warehouse or product does not exist', HttpStatus.NOT_FOUND);
+  }
+
+  async findInventoryBalanceByNameAndCity(name: string, city: string)  {
+    let inventoryBalance = await this.inventoryBalanceRepository.findOne({where: {name: name, city: city}});
+    if (inventoryBalance) {
+      return inventoryBalance;
+    }
+    
+    throw new HttpException('Warehouse or product does not exist', HttpStatus.NOT_FOUND);
+  }
+
+  async updateInventoryBalance(inventoryBalance: InventoryBalance, quantityMoved: string) {
+
+    let newbalance = inventoryBalance.balance + parseInt(quantityMoved);
+    if(newbalance < 0) {
+      throw new HttpException('Inventory balance can not be lower than 0', HttpStatus.BAD_REQUEST);
+    }
+    inventoryBalance.balance = newbalance;
+
+    return this.inventoryBalanceRepository.save(inventoryBalance);
   }
 }

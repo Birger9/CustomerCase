@@ -1,34 +1,45 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateDeliveryDto } from 'src/dtos/delivery.dtos';
-import { Delivery } from 'src/typeorm';
+import { InventoryBalanceService } from 'src/inventory-balance/inventory-balance.service';
+import { Delivery, InventoryBalance } from 'src/typeorm';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class DeliveryService {
     constructor(
-        @InjectRepository(Delivery) private readonly deliveryRepository: Repository<Delivery>,
+        @InjectRepository(Delivery)
+        private readonly deliveryRepository: Repository<Delivery>,
+        private readonly InventoryBalanceService: InventoryBalanceService,
       ) {}
           
     async createDelivery(createDeliveryDto: CreateDeliveryDto) {
       let name = createDeliveryDto.name;
       let city = createDeliveryDto.city;
   
-      let inventoryBalance = await this.deliveryRepository.findOne({where: {name: name, city: city}});
-      if (!inventoryBalance) {
-        const newInventoryBalance = this.deliveryRepository.create(createDeliveryDto);
-        return this.deliveryRepository.save(newInventoryBalance);
+      let delivery = await this.deliveryRepository.findOne({where: {name: name, city: city}});
+      if (!delivery) {
+
+        let inventoryBalance = await this.InventoryBalanceService.findInventoryBalanceByNameAndCity(name, city);
+        if (inventoryBalance) {
+          await this.InventoryBalanceService.updateInventoryBalance(inventoryBalance, createDeliveryDto.quantityMoved.toString());
+
+          const newDelivery = this.deliveryRepository.create(createDeliveryDto);
+          return this.deliveryRepository.save(newDelivery);
+        } else {
+          throw new HttpException('Inventory could not be found', HttpStatus.NOT_FOUND);
+        }
+      } else {
+        throw new HttpException('That delivery already exists', HttpStatus.CONFLICT);
       }
-      
-      throw new HttpException('That delivery already exists', HttpStatus.CONFLICT);
     }
   
     async updateDelivery(id: number, quantityMoved: number) {
-      let inventoryBalance = await this.findDeliveryById(id);
+      let delivery = await this.findDeliveryById(id);
   
-      inventoryBalance.quantityMoved = quantityMoved;
+      delivery.quantityMoved = quantityMoved;
   
-      return this.deliveryRepository.save(inventoryBalance);
+      return this.deliveryRepository.save(delivery);
     }
   
     getDeliveries() {
