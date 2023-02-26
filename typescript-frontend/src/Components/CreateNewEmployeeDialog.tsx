@@ -12,6 +12,7 @@ import { FormControl, InputLabel } from '@mui/material';
 import { StringInputField } from './StringInputField';
 import { useState } from 'react';
 import axios from 'axios';
+import { SelectRightList } from './SelectRightList';
 
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -63,7 +64,7 @@ export default function CreateNewEmployeeDialog() {
   // Hooks used for adding new inventory.
   const [employeeEmail, setEmployeeEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [employeeRight, setEmployeeRight] = useState("");
+  const [employeeRight, setEmployeeRight] = useState("0");
 
   const handleClickOpen = () => {
     setOpened(true);
@@ -116,6 +117,8 @@ export default function CreateNewEmployeeDialog() {
   const employeeEmailFieldId = "outlined-employee-email";
   const employeePasswordFieldId = "outlined-employee-password";
   const employeeRightFieldId = "outlined-employee-right";
+
+  const rightsList = ["0", "1", "2"];
 
   return (
     <div>
@@ -176,10 +179,12 @@ export default function CreateNewEmployeeDialog() {
           <InputLabel htmlFor={employeePasswordFieldId}>
               Right
           </InputLabel>
-          <StringInputField
+          <SelectRightList
               id={employeeRightFieldId}
-              strValue={employeeRight}
-              setStr={setEmployeeRight}
+              labelId={employeeRightFieldId + "1"}
+              value={employeeRight}
+              valueList={rightsList}
+              setValue={setEmployeeRight}
           />
         </FormControl>
         </DialogContent>
