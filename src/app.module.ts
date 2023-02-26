@@ -8,6 +8,7 @@ import { EmployeesModule } from './employees/employees.module';
 import { AuthModule } from './auth/auth.module';
 import { ProductsModule } from './products/products.module';
 import { WarehousesModule } from './warehouses/warehouses.module';
+import { InventoryBalanceModule } from './inventory-balance/inventory-balance.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { WarehousesModule } from './warehouses/warehouses.module';
     AuthModule,
     ProductsModule,
     WarehousesModule,
+    InventoryBalanceModule,
   ],
   controllers: [],
   providers: [],

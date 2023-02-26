@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
+import { InventoryBalance } from './InventoryBalance.entity';
 
 @Entity()
 export class Product {
@@ -18,4 +19,10 @@ export class Product {
     nullable: false,
   })
   price: number;
+
+  @OneToMany(
+    () => InventoryBalance,
+    (inventoryBalance) => inventoryBalance.productNumber,
+  )
+  public warehouseConnection: InventoryBalance[];
 }
