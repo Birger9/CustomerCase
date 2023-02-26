@@ -4,7 +4,7 @@ import Nav from "../Components/Nav/Nav";
 import WarehousesTable from "../Components/WarehousesTable";
 
 //import jwt_decode from "jwt-decode";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const WarehousesPage: React.FC = () => {
     // Used for snackbar.
@@ -21,8 +21,19 @@ export const WarehousesPage: React.FC = () => {
     };
 
     const [warehouses, setWarehouses] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
+        if (typeof (Storage) !== "undefined") {
+            let token = localStorage.getItem("token");
+            if (!token) {
+                navigate("/");
+            }
+        }
+        else {
+            navigate("/");
+        }
+
         const getWarehouses = async () => {
             try {
                 const { data, status } = await axios.get(

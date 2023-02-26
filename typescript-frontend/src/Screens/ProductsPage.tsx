@@ -4,7 +4,7 @@ import Nav from "../Components/Nav/Nav";
 import ProductsTable from "../Components/ProductsTable";
 
 //import jwt_decode from "jwt-decode";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const ProductsPage: React.FC = () => {
     // Used for snackbar.
@@ -21,8 +21,19 @@ export const ProductsPage: React.FC = () => {
     };
 
     const [products, setProducts] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
+        if (typeof (Storage) !== "undefined") {
+            let token = localStorage.getItem("token");
+            if (!token) {
+                navigate("/");
+            }
+        }
+        else {
+            navigate("/");
+        }
+
         const getProducts = async () => {
             try {
                 const { data, status } = await axios.get(

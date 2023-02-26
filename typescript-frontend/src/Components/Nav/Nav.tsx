@@ -2,6 +2,8 @@
 import React from 'react';
 import styles from './Nav.module.css';
 
+import { useNavigate } from "react-router-dom";
+
 import * as data from './links.json';
 const linkString = JSON.stringify(data);
 const links = JSON.parse(linkString).links;
@@ -28,11 +30,18 @@ const Links: React.FC<{ links: Link[] }> = ({ links }) => {
 }
 
 const Nav: React.FC<{}> = () => {
+    const navigate = useNavigate();
+
+    const logoutEmployee = () => {
+        localStorage.removeItem("token");
+        navigate("/");
+    };
+    
     return (
           <div className={styles.navbar}> 
               <Links links={links}/>           
               <div className={styles['logo-container']}>
-                  <span>Log out</span>
+                  <span onClick={logoutEmployee}>Log out</span>
               </div>
           </div>
       )
